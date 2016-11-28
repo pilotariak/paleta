@@ -26,28 +26,78 @@ import (
 	"strings"
 
 	"github.com/olekukonko/tablewriter"
+
+	"github.com/pilotariak/paleta/leagues"
 )
 
 const (
 	uri = "http://lcapb.euskalpilota.fr/resultats.php"
 )
 
-func fetch() ([]byte, error) {
+var (
+	disciplines = map[string]string{
+		"2":   "Trinquet / P.G. Pleine Masculin",
+		"3":   "Trinquet / P.G. Creuse Masculin",
+		"4":   "Trinquet / P.G. Pleine Feminine",
+		"5":   "Trinquet / P.G. Creuse Feminine",
+		"13":  "Place Libre / Grand Chistera",
+		"16":  "Place Libre / P.G. Pleine Masculin",
+		"26":  "Mur à Gauche / P.G. Pleine Masculin",
+		"27":  "Mur à Gauche / P.G. Pleine Feminine",
+		"28":  "Mur à Gauche / P.G. Creuse Masculin Individuel",
+		"126": "Mur A gauche / P.G. Pleine Masculin Barrages",
+		"501": "Place Libre / P.G Pleine Feminine",
+	}
+
+	levels = map[string]string{
+		"1":  "1ère Série",
+		"2":  "2ème Série",
+		"3":  "3ème Série",
+		"4":  "Seniors",
+		"6":  "Cadets",
+		"7":  "Minimes",
+		"8":  "Benjamins",
+		"9":  "Poussins",
+		"51": "Senoir Individuel",
+	}
+)
+
+func init() {
+	leagues.RegisterLeague("lcapb", newLCAPBLeague)
+}
+
+type lcapLeague struct {
+	Website string
+}
+
+func newLCAPBLeague() (leagues.League, error) {
+	return &lcapLeague{}, nil
+}
+
+func (l *lcapLeague) Levels() map[string]string {
+	return levels
+}
+
+func (l *lcapLeague) Disciplines() map[string]string {
+	return disciplines
+}
+
+func fetch(disciplineID string, levelID string) ([]byte, error) {
 	data := url.Values{}
 	data.Add("InSel", "")
 	data.Add("InCompet", "20170501")
-	data.Add("InSpec", "2")
+	data.Add("InSpec", disciplineID)
 	data.Add("InVille", "0")
 	data.Add("InClub", "0")
 	data.Add("InDate", "")
 	data.Add("InDatef", "")
-	data.Add("InCat", "1")
+	data.Add("InCat", levelID)
 	data.Add("InPhase", "0")
 	data.Add("InPoule", "0")
 	data.Add("InGroupe", "0")
 	data.Add("InVoir", "Voir les résultats")
 	u, _ := url.ParseRequestURI(uri)
-	urlStr := fmt.Sprintf("%v", u) // "https://api.com/user/"
+	urlStr := fmt.Sprintf("%v", u)
 
 	client := &http.Client{}
 	r, _ := http.NewRequest("POST", urlStr, bytes.NewBufferString(data.Encode()))
@@ -66,8 +116,8 @@ func fetch() ([]byte, error) {
 	return body, nil
 }
 
-func Display() error {
-	body, err := fetch()
+func (l *lcapLeague) Display(disciplineID string, levelID string) error {
+	body, err := fetch(disciplineID, levelID)
 	if err != nil {
 		return err
 	}

@@ -23,7 +23,8 @@ import (
 
 	"github.com/Sirupsen/logrus"
 
-	"github.com/pilotariak/paleta/providers/lcapb"
+	"github.com/pilotariak/paleta/leagues"
+	_ "github.com/pilotariak/paleta/leagues/lcapb"
 	"github.com/pilotariak/paleta/version"
 )
 
@@ -77,5 +78,10 @@ func main() {
 		}
 	}()
 
-	lcapb.Display()
+	league, err := leagues.New("lcapb")
+	if err != nil {
+		logrus.Errorf("Can't retrieve league: %s", err.Error())
+		os.Exit(1)
+	}
+	league.Display("2", "1")
 }
