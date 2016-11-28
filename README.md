@@ -40,8 +40,10 @@ You can download the binaries :
 
         $ ./paleta -leagues
         Leagues:
-        - lcapb
         - ctpb
+        - lbpb
+        - lcapb
+        - lidfpb
 
 * Show available levels for a league :
 
