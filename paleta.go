@@ -24,7 +24,11 @@ import (
 	"github.com/Sirupsen/logrus"
 
 	"github.com/pilotariak/paleta/leagues"
+	_ "github.com/pilotariak/paleta/leagues/ctpb"
+	_ "github.com/pilotariak/paleta/leagues/ffpb"
+	_ "github.com/pilotariak/paleta/leagues/lbpb"
 	_ "github.com/pilotariak/paleta/leagues/lcapb"
+	_ "github.com/pilotariak/paleta/leagues/lidfpb"
 	"github.com/pilotariak/paleta/version"
 )
 
@@ -37,6 +41,7 @@ var (
 	levelID      int
 	disciplines  bool
 	disciplineID int
+	describe     bool
 )
 
 func init() {
@@ -49,6 +54,7 @@ func init() {
 	flag.IntVar(&levelID, "level", -1, "Level ID to look on")
 	flag.BoolVar(&disciplines, "disciplines", false, "Display available disciplines for a league")
 	flag.IntVar(&disciplineID, "discipline", -1, "Discipline ID to look on")
+	flag.BoolVar(&describe, "describe", false, "Describe league")
 
 	flag.Usage = func() {
 		fmt.Fprint(os.Stderr, fmt.Sprintf("Paleta v%s", version.Version))
@@ -120,6 +126,10 @@ func main() {
 		for k, v := range league.Disciplines() {
 			fmt.Printf("- [%s] %s\n", k, v)
 		}
+		os.Exit(0)
+	}
+	if describe {
+		league.Describe()
 		os.Exit(0)
 	}
 

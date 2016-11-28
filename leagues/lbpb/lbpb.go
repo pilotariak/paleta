@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package lcapb
+package lbpb
 
 import (
 	// "fmt"
@@ -25,24 +25,29 @@ import (
 )
 
 const (
-	uri = "http://lcapb.euskalpilota.fr/resultats.php"
+	uri = "http://lbpb.euskalpilota.fr/resultats.php"
 )
 
 var (
-	current = "20170501"
+	current = "20170301"
 
 	disciplines = map[string]string{
-		"2":   "Trinquet / P.G. Pleine Masculin",
-		"3":   "Trinquet / P.G. Creuse Masculin",
-		"4":   "Trinquet / P.G. Pleine Feminine",
-		"5":   "Trinquet / P.G. Creuse Feminine",
-		"13":  "Place Libre / Grand Chistera",
-		"16":  "Place Libre / P.G. Pleine Masculin",
-		"26":  "Mur à Gauche / P.G. Pleine Masculin",
-		"27":  "Mur à Gauche / P.G. Pleine Feminine",
-		"28":  "Mur à Gauche / P.G. Creuse Masculin Individuel",
-		"126": "Mur A gauche / P.G. Pleine Masculin Barrages",
-		"501": "Place Libre / P.G Pleine Feminine",
+		"2":  "Trinquet / P.G. Pleine Masculin",
+		"3":  "Trinquet / P.G. Creuse Masculin",
+		"4":  "Trinquet / P.G. Pleine Feminine",
+		"5":  "Trinquet / P.G. Creuse Feminine",
+		"6":  "Trinquet / Xare",
+		"7":  "Trinquet / Paleta Cuir",
+		"12": "Place Libre / Chistera Joko Garbi",
+		"22": "Mur à Gauche / Pala Corta",
+		"23": "Mur à Gauche / Chistera Joko Garbi",
+		"26": "Mur à Gauche / P.G. Pleine Masculin",
+		"28": "Mur à Gauche / P.G. Creuse Masculin Individuel",
+		"29": "Mur à Gauche / Frontenis Féminin",
+		"30": "Mur à Gauche / Frontenis Masculin",
+		"41": "Mur à Gauche / Paleta Cuir Jeunes",
+		"31": "Mur à Gauche / P.G Creuse Féminine",
+		"32": "Mur à Gauche / P.G Creuse Masculin par éq.",
 	}
 
 	levels = map[string]string{
@@ -54,15 +59,17 @@ var (
 		"7":  "Minimes",
 		"8":  "Benjamins",
 		"9":  "Poussins",
-		"51": "Senoir Individuel",
+		"10": "Minimes 2",
+		"11": "Benjamins 2",
+		"12": "Poussins 2",
 	}
 )
 
 func init() {
-	leagues.RegisterLeague("lcapb", newLCAPBLeague)
+	leagues.RegisterLeague("lbpb", newLBPBLeague)
 }
 
-type lcapbLeague struct {
+type lbpbLeague struct {
 	Website     string
 	Name        string
 	Address     string
@@ -71,18 +78,18 @@ type lcapbLeague struct {
 	Fax         string
 }
 
-func newLCAPBLeague() (leagues.League, error) {
-	return &lcapbLeague{
-		Name:        "LIGUE DE PELOTE BASQUE DE CÔTE D’ARGENT",
-		Website:     "http://www.lcapb.net/",
-		Address:     "Maison Départementale des Sports\n153, rue David Johnston\n33000 Bordeaux",
-		Email:       "contact@lcapb.net",
-		PhoneNumber: "05 56 00 99 15",
-		Fax:         "05 56 00 99 15",
+func newLBPBLeague() (leagues.League, error) {
+	return &lbpbLeague{
+		Name:        "Ligue du Béarn de Pelote",
+		Website:     "http://liguebearnpelote.fr/lbp/",
+		Address:     "Centre Nelson Paillou\n12 rue du Professeur Garrigou-Lagrange\n64000 PAU",
+		Email:       "liguebearnpelote@wanadoo.fr",
+		PhoneNumber: "05 59 14 19 98 ",
+		Fax:         "05 59 14 19 99",
 	}, nil
 }
 
-func (l *lcapbLeague) Describe() {
+func (l *lbpbLeague) Describe() {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetRowLine(true)
 	table.SetAutoWrapText(false)
@@ -94,16 +101,16 @@ func (l *lcapbLeague) Describe() {
 	table.Render()
 }
 
-func (l *lcapbLeague) Levels() map[string]string {
+func (l *lbpbLeague) Levels() map[string]string {
 	return levels
 }
 
-func (l *lcapbLeague) Disciplines() map[string]string {
+func (l *lbpbLeague) Disciplines() map[string]string {
 	return disciplines
 }
 
-func (l *lcapbLeague) Display(disciplineID string, levelID string) error {
+func (l *lbpbLeague) Display(disciplineID string, levelID string) error {
 
-	logrus.Debugf("[lcapb] Search results for %s %s", disciplineID, levelID)
+	logrus.Debugf("[lbpb] Search results for %s %s", disciplineID, levelID)
 	return leagues.Display(uri, disciplineID, levelID, current)
 }

@@ -13,13 +13,17 @@ This tool is a simple CLI to display informations about Pelota competitions for 
 Supported leagues are :
 
 * [x] [Côte d'Argent](http://www.lcapb.net/)
-* [ ] [Pays Basque](http://www.comite-pelote-basque.eus/fr/)
+* [x] [Pays Basque](http://www.comite-pelote-basque.eus/fr/)
 * [ ] [Landes](http://www.llpb.fr/)
 * [ ] [Béarn](http://liguebearnpelote.fr/)
 * [ ] [Midi-Pyrénées](http://www.lmppb.fr/)
-* [ ] [Ile de France](http://www.lidfpb.fr/)
+* [x] [Ile de France](http://www.lidfpb.fr/)
 
-* [ ] [Fédération française](http://www.ffpb.net/)
+* [x] [Fédération française](http://www.ffpb.net/)
+
+
+![Screenshot](paleta.png)
+
 
 ## Installation
 
@@ -36,7 +40,10 @@ You can download the binaries :
 
         $ ./paleta -leagues
         Leagues:
+        - ctpb
+        - lbpb
         - lcapb
+        - lidfpb
 
 * Show available levels for a league :
 
@@ -129,4 +136,3 @@ A [changelog](ChangeLog.md) is available
 Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 [badge-license]: https://img.shields.io/badge/license-Apache2-green.svg?style=flat
-

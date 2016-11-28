@@ -31,6 +31,9 @@ import (
 
 type League interface {
 
+	// Describe display informations
+	Describe()
+
 	// Display will print results on stdout
 	Display(disciplineID string, levelID string) error
 
