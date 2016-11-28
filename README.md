@@ -105,11 +105,6 @@ You can download the binaries :
 
         $ make build
 
-* Start backends :
-
-        $ docker run -d -p 6379:6379 --name redis redis:3
-        $ docker run -d -p 27017:27017 --name mongo mongo:3.1
-
 * Launch unit tests :
 
         $ make test
@@ -135,7 +130,3 @@ Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 [badge-license]: https://img.shields.io/badge/license-Apache2-green.svg?style=flat
 
-[BoltDB]: https://github.com/boltdb/bolt
-[LevelDB]: http://leveldb.org/
-[Redis]: http://redis.io/
-[MongoDB]: https://www.mongodb.org/
