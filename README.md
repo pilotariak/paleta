@@ -21,6 +21,10 @@ Supported leagues are :
 
 * [ ] [Fédération française](http://www.ffpb.net/)
 
+
+![Screenshot](paleta.png)
+
+
 ## Installation
 
 You can download the binaries :
