@@ -14,6 +14,12 @@
 
 APP = paleta
 
+VERSION=$(shell \
+        grep "const Version" version/version.go \
+        |awk -F'=' '{print $$2}' \
+        |sed -e "s/[^0-9.]//g" \
+	|sed -e "s/ //g")
+
 SHELL = /bin/bash
 
 DIR = $(shell pwd)
@@ -21,11 +27,14 @@ DIR = $(shell pwd)
 DOCKER = docker
 
 GO = go
+GLIDE = glide
 
 GOX = gox -os="linux darwin windows freebsd openbsd netbsd"
+GOX_ARGS = "-output={{.Dir}}-$(VERSION)_{{.OS}}_{{.Arch}}"
 
 BINTRAY_URI = https://api.bintray.com
 BINTRAY_USERNAME = nlamirault
+BINTRAY_ORG = pilotariak
 BINTRAY_REPOSITORY= oss
 
 NO_COLOR=\033[0m
@@ -35,21 +44,13 @@ WARN_COLOR=\033[33;01m
 
 MAKE_COLOR=\033[33;01m%-20s\033[0m
 
-MAIN = github.com/paletariak/paleta
+MAIN = github.com/pilotariak/paleta
 SRCS = $(shell git ls-files '*.go' | grep -v '^vendor/')
 PKGS = $(shell glide novendor)
-EXE = paleta
-
-VERSION=$(shell \
-        grep "const Version" version/version.go \
-        |awk -F'=' '{print $$2}' \
-        |sed -e "s/[^0-9.]//g" \
-	|sed -e "s/ //g")
+EXE = $(shell ls paleta-*_*)
 
 PACKAGE=$(APP)-$(VERSION)
 ARCHIVE=$(PACKAGE).tar
-
-GOX_ARGS = "-output={{.Dir}}-$(VERSION)_{{.OS}}_{{.Arch}}"
 
 .DEFAULT_GOAL := help
 
@@ -60,7 +61,7 @@ help:
 
 clean: ## Cleanup
 	@echo -e "$(OK_COLOR)[$(APP)] Cleanup$(NO_COLOR)"
-	@rm -fr $(EXE) $(EXE)-$(VERSION)_* $(APP)-*.tar.gz
+	@rm -fr $(APP) $(EXE) $(APP)-*.tar.gz
 
 .PHONY: init
 init: ## Install requirements
@@ -70,12 +71,13 @@ init: ## Install requirements
 	@go get -u github.com/Masterminds/rmvcsdir
 	@go get -u github.com/golang/lint/golint
 	@go get -u github.com/kisielk/errcheck
+	@go get -u golang.org/x/tools/cmd/oracle
 	@go get -u github.com/mitchellh/gox
 
 .PHONY: deps
 deps: ## Install dependencies
 	@echo -e "$(OK_COLOR)[$(APP)] Update dependencies$(NO_COLOR)"
-	@glide up -u -s -v
+	@govendor update
 
 .PHONY: build
 build: ## Make binary
@@ -85,7 +87,7 @@ build: ## Make binary
 .PHONY: test
 test: ## Launch unit tests
 	@echo -e "$(OK_COLOR)[$(APP)] Launch unit tests $(NO_COLOR)"
-	@$(GO) test -v $$(glide nv)
+	@govendor test +local
 
 .PHONY: lint
 lint: ## Launch golint
@@ -106,18 +108,18 @@ coverage: ## Launch code coverage
 
 gox: ## Make all binaries
 	@echo -e "$(OK_COLOR)[$(APP)] Create binaries $(NO_COLOR)"
-	$(GOX) $(GOX_ARGS) github.com/paletariak/paleta
+	$(GOX) $(GOX_ARGS) github.com/nlamirault/helmsman
 
 .PHONY: binaries
-binaries: gox ## Upload all binaries
+binaries: ## Upload all binaries
 	@echo -e "$(OK_COLOR)[$(APP)] Upload binaries to Bintray $(NO_COLOR)"
 	for i in $(EXE); do \
 		curl -T $$i \
 			-u$(BINTRAY_USERNAME):$(BINTRAY_APIKEY) \
-			"$(BINTRAY_URI)/content/$(BINTRAY_USERNAME)/$(BINTRAY_REPOSITORY)/$(APP)/${VERSION}/$$i;publish=1"; \
+			"$(BINTRAY_URI)/content/$(BINTRAY_ORG)/$(BINTRAY_REPOSITORY)/$(APP)/${VERSION}/$$i;publish=1"; \
         done
 
 # for goprojectile
 .PHONY: gopath
 gopath:
-	@echo GOPATH=`pwd`:`pwd`/vendor
+	@echo `pwd`:`pwd`/vendor
