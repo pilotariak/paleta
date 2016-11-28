@@ -77,7 +77,8 @@ func Display() error {
 	i := -1
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Date", "Club 1", "Club 2", "Score", "Commentaire"})
-
+	table.SetRowLine(true)
+	table.SetAutoWrapText(false)
 	for {
 		// token type
 		tokenType := z.Next()
@@ -120,7 +121,7 @@ func Display() error {
 				if inner == html.TextToken {
 					text := (string)(z.Text())
 					value := strings.TrimSpace(text)
-					// fmt.Printf("LI>>>>>> %s\n", value)
+					// fmt.Printf("%s\n%s", content[i], value)
 					content[i] = fmt.Sprintf("%s\n%s", content[i], value)
 				}
 
