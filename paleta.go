@@ -29,14 +29,26 @@ import (
 )
 
 var (
-	debug bool
-	vrsn  bool
+	debug        bool
+	vrsn         bool
+	league       string
+	listleagues  bool
+	levels       bool
+	levelID      int
+	disciplines  bool
+	disciplineID int
 )
 
 func init() {
 	// parse flags
 	flag.BoolVar(&vrsn, "version", false, "print version and exit")
 	flag.BoolVar(&debug, "d", false, "run in debug mode")
+	flag.BoolVar(&listleagues, "leagues", false, "Display available leagues")
+	flag.StringVar(&league, "league", "", "League key")
+	flag.BoolVar(&levels, "levels", false, "Display available levels for a league")
+	flag.IntVar(&levelID, "level", -1, "Level ID to look on")
+	flag.BoolVar(&disciplines, "disciplines", false, "Display available disciplines for a league")
+	flag.IntVar(&disciplineID, "discipline", -1, "Discipline ID to look on")
 
 	flag.Usage = func() {
 		fmt.Fprint(os.Stderr, fmt.Sprintf("Paleta v%s", version.Version))
@@ -50,10 +62,22 @@ func init() {
 		os.Exit(0)
 	}
 
-	// set log level
 	if debug {
 		logrus.SetLevel(logrus.DebugLevel)
 	}
+
+	if listleagues {
+		fmt.Println("Leagues:")
+		for _, name := range leagues.ListLeagues() {
+			fmt.Printf("- %s\n", name)
+		}
+		os.Exit(0)
+	}
+
+	if len(league) == 0 {
+		usageAndExit("League name can't be empty.", 1)
+	}
+
 }
 
 func usageAndExit(message string, exitCode int) {
@@ -78,10 +102,30 @@ func main() {
 		}
 	}()
 
-	league, err := leagues.New("lcapb")
+	league, err := leagues.New(league)
 	if err != nil {
 		logrus.Errorf("Can't retrieve league: %s", err.Error())
 		os.Exit(1)
 	}
-	league.Display("2", "1")
+
+	if levels {
+		fmt.Println("Levels:")
+		for k, v := range league.Levels() {
+			fmt.Printf("- [%s] %s\n", k, v)
+		}
+		os.Exit(0)
+	}
+	if disciplines {
+		fmt.Println("Disciplines:")
+		for k, v := range league.Disciplines() {
+			fmt.Printf("- [%s] %s\n", k, v)
+		}
+		os.Exit(0)
+	}
+
+	if levelID == -1 || disciplineID == -1 {
+		usageAndExit("Please specify level and discipline", 1)
+	}
+
+	league.Display(fmt.Sprintf("%d", disciplineID), fmt.Sprintf("%d", levelID))
 }

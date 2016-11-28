@@ -25,6 +25,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/olekukonko/tablewriter"
 
 	"github.com/pilotariak/paleta/leagues"
@@ -100,6 +101,7 @@ func fetch(disciplineID string, levelID string) ([]byte, error) {
 	urlStr := fmt.Sprintf("%v", u)
 
 	client := &http.Client{}
+	logrus.Debugf("[lcapb] URI: %s %s", urlStr, data)
 	r, _ := http.NewRequest("POST", urlStr, bytes.NewBufferString(data.Encode()))
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	r.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
@@ -108,7 +110,7 @@ func fetch(disciplineID string, levelID string) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Http request to %s failed: %s", r.URL, err.Error())
 	}
-	fmt.Println(resp.Status)
+	logrus.Debugf("[lcapb] HTTP Status: %s", resp.Status)
 	body, err := ioutil.ReadAll(resp.Body)
 	if nil != err {
 		return nil, fmt.Errorf("errorination happened reading the body: %s", err.Error())
@@ -182,9 +184,9 @@ func (l *lcapLeague) Display(disciplineID string, levelID string) error {
 			if t.Data == "tr" {
 				if len(content[0]) > 0 {
 					// fmt.Printf("==> %d\n", len(content))
-					for rank, elem := range content {
-						fmt.Printf("%d = %s\n", rank, elem)
-					}
+					// for rank, elem := range content {
+					// 	fmt.Printf("%d = %s\n", rank, elem)
+					// }
 					table.Append(content)
 					content = []string{"", "", "", "", ""}
 				}
