@@ -17,7 +17,7 @@ Supported leagues are :
 * [ ] [Landes](http://www.llpb.fr/)
 * [ ] [Béarn](http://liguebearnpelote.fr/)
 * [ ] [Midi-Pyrénées](http://www.lmppb.fr/)
-* [ ] [Ile de France](http://www.lidfpb.fr/)
+* [x] [Ile de France](http://www.lidfpb.fr/)
 
 * [ ] [Fédération française](http://www.ffpb.net/)
 
