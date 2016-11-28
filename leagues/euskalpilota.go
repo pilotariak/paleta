@@ -36,7 +36,7 @@ var (
 	redOut    = color.New(color.FgRed).SprintFunc()
 )
 
-func Fetch(uri string, disciplineID string, levelID string, data url.Values) ([]byte, error) {
+func fetch(uri string, disciplineID string, levelID string, data url.Values) ([]byte, error) {
 	u, _ := url.ParseRequestURI(uri)
 	urlStr := fmt.Sprintf("%v", u)
 
@@ -74,7 +74,7 @@ func Display(uri string, disciplineID string, levelID string, date string) error
 	data.Add("InGroupe", "0")
 	data.Add("InVoir", "Voir les résultats")
 
-	body, err := Fetch(uri, disciplineID, levelID, data)
+	body, err := fetch(uri, disciplineID, levelID, data)
 	if err != nil {
 		return err
 	}

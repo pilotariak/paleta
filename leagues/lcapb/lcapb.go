@@ -16,8 +16,10 @@ package lcapb
 
 import (
 	// "fmt"
+	"os"
 
 	"github.com/Sirupsen/logrus"
+	"github.com/olekukonko/tablewriter"
 
 	"github.com/pilotariak/paleta/leagues"
 )
@@ -60,25 +62,47 @@ func init() {
 	leagues.RegisterLeague("lcapb", newLCAPBLeague)
 }
 
-type lcapLeague struct {
-	Website string
+type lcapbLeague struct {
+	Website     string
+	Name        string
+	Address     string
+	Email       string
+	PhoneNumber string
+	Fax         string
 }
 
 func newLCAPBLeague() (leagues.League, error) {
-	return &lcapLeague{
-		Website: "http://www.lcapb.net/",
+	return &lcapbLeague{
+		Name:        "LIGUE DE PELOTE BASQUE DE CÔTE D’ARGENT",
+		Website:     "http://www.lcapb.net/",
+		Address:     "Maison Départementale des Sports\n153, rue David Johnston\n33000 Bordeaux",
+		Email:       "contact@lcapb.net",
+		PhoneNumber: "05 56 00 99 15",
+		Fax:         "05 56 00 99 15",
 	}, nil
 }
 
-func (l *lcapLeague) Levels() map[string]string {
+func (l *lcapbLeague) Describe() {
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetRowLine(true)
+	table.SetAutoWrapText(false)
+	table.Append([]string{"Name", l.Name})
+	table.Append([]string{"Address", l.Address})
+	table.Append([]string{"Website", l.Website})
+	table.Append([]string{"Email", l.Email})
+	table.Append([]string{"Phone number", l.PhoneNumber})
+	table.Render()
+}
+
+func (l *lcapbLeague) Levels() map[string]string {
 	return levels
 }
 
-func (l *lcapLeague) Disciplines() map[string]string {
+func (l *lcapbLeague) Disciplines() map[string]string {
 	return disciplines
 }
 
-func (l *lcapLeague) Display(disciplineID string, levelID string) error {
+func (l *lcapbLeague) Display(disciplineID string, levelID string) error {
 
 	logrus.Debugf("[lcapb] Search results for %s %s", disciplineID, levelID)
 	return leagues.Display(uri, disciplineID, levelID, current)

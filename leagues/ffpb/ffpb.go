@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package lbpb
+package ffpb
 
 import (
 	// "fmt"
@@ -25,51 +25,52 @@ import (
 )
 
 const (
-	uri = "http://lbpb.euskalpilota.fr/resultats.php"
+	uri = "http://ffpb.euskalpilota.fr/resultats.php"
 )
 
 var (
-	current = "20170301"
+	current = "20170101"
 
 	disciplines = map[string]string{
+		"1":  "Trinquet / Main Nue - Groupe A",
 		"2":  "Trinquet / P.G. Pleine Masculin",
 		"3":  "Trinquet / P.G. Creuse Masculin",
 		"4":  "Trinquet / P.G. Pleine Feminine",
 		"5":  "Trinquet / P.G. Creuse Feminine",
 		"6":  "Trinquet / Xare",
-		"7":  "Trinquet / Paleta Cuir",
-		"12": "Place Libre / Chistera Joko Garbi",
+		"7":  "Trinquet / Paleta Pelote de Cuir",
+		"8":  "Trinquet / Pasaka",
+		"9":  "Trinquet / Main Nue Tête à Tête",
+		"21": "Mur à Gauche / Cesta Punta",
 		"22": "Mur à Gauche / Pala Corta",
 		"23": "Mur à Gauche / Chistera Joko Garbi",
+		"24": "Mur à Gauche / Main nue - Groupe A",
+		"25": "Fronton Mur à Gauche / Paleta Pelote de Cuir",
 		"26": "Mur à Gauche / P.G. Pleine Masculin",
 		"28": "Mur à Gauche / P.G. Creuse Masculin Individuel",
-		"29": "Mur à Gauche / Frontenis Féminin",
-		"30": "Mur à Gauche / Frontenis Masculin",
-		"41": "Mur à Gauche / Paleta Cuir Jeunes",
-		"31": "Mur à Gauche / P.G Creuse Féminine",
-		"32": "Mur à Gauche / P.G Creuse Masculin par éq.",
+		"29": "Fronton Mur à  Gauche / Frontenis Garçons Par équipes",
+		"58": "Trinquet / Main Nue Tête à tête GrB",
+		"34": "Fronton Mur à Gauche / Paleta Pelote de Gomme Pleine Corporatif",
 	}
-
 	levels = map[string]string{
-		"1":  "1ère Série",
-		"2":  "2ème Série",
-		"3":  "3ème Série",
+		"1":  "Nationale A",
+		"2":  "Nationale B",
 		"4":  "Seniors",
+		"5":  "Juniors",
 		"6":  "Cadets",
 		"7":  "Minimes",
 		"8":  "Benjamins",
 		"9":  "Poussins",
-		"10": "Minimes 2",
-		"11": "Benjamins 2",
-		"12": "Poussins 2",
+		"11": "Seniors 1ère Série",
+		"12": "Seniors 2ème Série",
 	}
 )
 
 func init() {
-	leagues.RegisterLeague("lbpb", newLBPBLeague)
+	leagues.RegisterLeague("ffpb", newFFPBLeague)
 }
 
-type lbpbLeague struct {
+type ffpbLeague struct {
 	Website     string
 	Name        string
 	Address     string
@@ -78,18 +79,18 @@ type lbpbLeague struct {
 	Fax         string
 }
 
-func newLBPBLeague() (leagues.League, error) {
-	return &lbpbLeague{
-		Name:        "Ligue du Béarn de Pelote",
-		Website:     "http://liguebearnpelote.fr/lbp/",
-		Address:     "Centre Nelson Paillou\n12 rue du Professeur Garrigou-Lagrange\n64000 PAU",
-		Email:       "liguebearnpelote@wanadoo.fr",
-		PhoneNumber: "05 59 14 19 98 ",
-		Fax:         "05 59 14 19 99",
+func newFFPBLeague() (leagues.League, error) {
+	return &ffpbLeague{
+		Name:        "Fédération Française de Pelote Basque",
+		Website:     "http://www.ffpb.net/",
+		Address:     "Fédération Française de Pelote Basque\nBP 816 - 60, avenue Dubrocq - 64108 BAYONNE",
+		Email:       "ffpbaccueil@orange.fr",
+		PhoneNumber: "05.59.59.22.34",
+		Fax:         "05.59.25.49.82",
 	}, nil
 }
 
-func (l *lbpbLeague) Describe() {
+func (l *ffpbLeague) Describe() {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetRowLine(true)
 	table.SetAutoWrapText(false)
@@ -101,16 +102,15 @@ func (l *lbpbLeague) Describe() {
 	table.Render()
 }
 
-func (l *lbpbLeague) Levels() map[string]string {
+func (l *ffpbLeague) Levels() map[string]string {
 	return levels
 }
 
-func (l *lbpbLeague) Disciplines() map[string]string {
+func (l *ffpbLeague) Disciplines() map[string]string {
 	return disciplines
 }
 
-func (l *lbpbLeague) Display(disciplineID string, levelID string) error {
-
-	logrus.Debugf("[lbpb] Search results for %s %s", disciplineID, levelID)
+func (l *ffpbLeague) Display(disciplineID string, levelID string) error {
+	logrus.Debugf("[ffpb] Search results for %s %s", disciplineID, levelID)
 	return leagues.Display(uri, disciplineID, levelID, current)
 }

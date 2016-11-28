@@ -15,10 +15,11 @@
 package ctpb
 
 import (
-	// "bytes"
 	// "fmt"
+	"os"
 
 	"github.com/Sirupsen/logrus"
+	"github.com/olekukonko/tablewriter"
 
 	"github.com/pilotariak/paleta/leagues"
 )
@@ -47,12 +48,23 @@ func init() {
 
 type lidfpbLeague struct {
 	Website string
+	Name    string
 }
 
 func newLIDFPBLeague() (leagues.League, error) {
 	return &lidfpbLeague{
 		Website: "http://www.lidfpb.fr/",
+		Name:    "Ligue d’île de France de pelote basque",
 	}, nil
+}
+
+func (l *lidfpbLeague) Describe() {
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetRowLine(true)
+	table.SetAutoWrapText(false)
+	table.Append([]string{"Name", l.Name})
+	table.Append([]string{"Website", l.Website})
+	table.Render()
 }
 
 func (l *lidfpbLeague) Levels() map[string]string {

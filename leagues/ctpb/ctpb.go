@@ -15,10 +15,11 @@
 package ctpb
 
 import (
-	// "bytes"
 	// "fmt"
+	"os"
 
 	"github.com/Sirupsen/logrus"
+	"github.com/olekukonko/tablewriter"
 
 	"github.com/pilotariak/paleta/leagues"
 )
@@ -76,13 +77,36 @@ func init() {
 }
 
 type ctpbLeague struct {
-	Website string
+	Website     string
+	Name        string
+	Address     string
+	Email       string
+	PhoneNumber string
+	Fax         string
 }
 
 func newCTPBLeague() (leagues.League, error) {
 	return &ctpbLeague{
-		Website: "http://www.comite-pelote-basque.eus/fr/",
+		Website:     "http://www.comite-pelote-basque.eus/fr/",
+		Name:        "Comité Territorial Pays Basque de Pelote Basque",
+		Address:     "7, place du jeu de paume\n64240 HASPARREN",
+		Email:       "info@comite-pelote-basque.eus",
+		Fax:         "05-59-29-49-61",
+		PhoneNumber: "05-59-29-59-40",
 	}, nil
+}
+
+func (l *ctpbLeague) Describe() {
+	table := tablewriter.NewWriter(os.Stdout)
+	// table.SetHeader([]string{"Date", "Club 1", "Club 2", "Score", "Commentaire"})
+	table.SetRowLine(true)
+	table.SetAutoWrapText(false)
+	table.Append([]string{"Name", l.Name})
+	table.Append([]string{"Address", l.Address})
+	table.Append([]string{"Website", l.Website})
+	table.Append([]string{"Email", l.Email})
+	table.Append([]string{"Phone number", l.PhoneNumber})
+	table.Render()
 }
 
 func (l *ctpbLeague) Levels() map[string]string {
