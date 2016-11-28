@@ -25,6 +25,7 @@ import (
 
 	"github.com/pilotariak/paleta/leagues"
 	_ "github.com/pilotariak/paleta/leagues/ctpb"
+	_ "github.com/pilotariak/paleta/leagues/lbpb"
 	_ "github.com/pilotariak/paleta/leagues/lcapb"
 	_ "github.com/pilotariak/paleta/leagues/lidfpb"
 	"github.com/pilotariak/paleta/version"
