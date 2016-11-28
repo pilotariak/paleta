@@ -100,7 +100,7 @@ func Display() error {
 							value := strings.TrimSpace(text)
 							if len(value) > 0 {
 								i = i + 1
-								fmt.Printf("%d Attr::::::::::: %s :: %s\n", i, value, t.Attr)
+								// fmt.Printf("%d Attr::::::::::: %s :: %s\n", i, value, t.Attr)
 								content[i] = value
 							}
 						} else if t.Attr[0].Val == "mTitreSmall" {
@@ -108,30 +108,31 @@ func Display() error {
 							value := strings.TrimSpace(text)
 							if len(value) > 0 {
 								i = i + 1
-								fmt.Printf("%d Attr::::::::::: %s :: %s\n", i, value, t.Attr)
+								// fmt.Printf("%d Attr::::::::::: %s :: %s\n", i, value, t.Attr)
 								content[i] = value
 							}
 						}
 					}
-				}
 
-				// } else if t.Data == "li" {
-				// 	inner := z.Next()
-				// 	if inner == html.TextToken {
-				// 		text := (string)(z.Text())
-				// 		value := strings.TrimSpace(text)
-				// 		content[i] = fmt.Sprintf("%s %s", content[i], value)
+				} else if t.Data == "li" {
+					inner := z.Next()
+					if inner == html.TextToken {
+						text := (string)(z.Text())
+						value := strings.TrimSpace(text)
+						fmt.Printf("LI>>>>>> %s\n", value)
+						content[i] = fmt.Sprintf("%s %s", content[i], value)
+					}
+				}
 			}
 		case html.TextToken: // text between start and end tag
 		case html.EndTagToken: // </tag>
 			t := z.Token()
 			if t.Data == "tr" {
 				if len(content[0]) > 0 {
-					fmt.Printf("==> %d\n", len(content))
+					// fmt.Printf("==> %d\n", len(content))
 					for rank, elem := range content {
 						fmt.Printf("%d = %s\n", rank, elem)
 					}
-					fmt.Println("OK")
 					table.Append(content)
 					content = []string{"", "", "", "", ""}
 				}
@@ -141,56 +142,6 @@ func Display() error {
 		}
 	}
 
-	// While have not hit the </html> tag
-	// for z.Token().Data != "html" {
-	// 	tt := z.Next()
-	// 	if tt == html.StartTagToken {
-	// 		t := z.Token()
-	// 		if t.Data == "tr" {
-	// 			i = -1
-
-	// 		} else if t.Data == "td" {
-	// 			inner := z.Next()
-	// 			if inner == html.TextToken {
-	// 				if len(t.Attr) > 0 {
-	// 					if t.Attr[0].Val == "L0" { // Text to extract
-	// 						text := (string)(z.Text())
-	// 						value := strings.TrimSpace(text)
-	// 						if len(value) > 0 {
-	// 							i = i + 1
-	// 							fmt.Printf("%d Attr::::::::::: %s :: %s\n", i, value, t.Attr)
-	// 							content[i] = value
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-
-	// 			// } else if t.Data == "li" {
-	// 			// 	inner := z.Next()
-	// 			// 	if inner == html.TextToken {
-	// 			// 		text := (string)(z.Text())
-	// 			// 		value := strings.TrimSpace(text)
-	// 			// 		content[i] = fmt.Sprintf("%s %s", content[i], value)
-	// 		}
-
-	// 	} else if tt == html.EndTagToken {
-	// 		t := z.Token()
-	// 		if t.Data == "tr" {
-	// 			if len(content[0]) > 0 {
-	// 				fmt.Printf("==> %d\n", len(content))
-	// 				for rank, elem := range content {
-	// 					fmt.Printf("%d = %s\n", rank, elem)
-	// 				}
-	// 				fmt.Println("OK")
-	// 				table.Append(content)
-	// 				content = []string{"", "", "", "", ""}
-	// 			}
-	// 		}
-	// 	}
-	// }
-
-	// fmt.Println(content)
-	fmt.Printf("Finished")
 	table.Render()
 	return nil
 }
