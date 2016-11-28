@@ -148,7 +148,7 @@ func (l *lcapLeague) Display(disciplineID string, levelID string) error {
 				inner := z.Next()
 				if inner == html.TextToken {
 					if len(t.Attr) > 0 {
-						if t.Attr[0].Val == "L0" { // Text to extract
+						if t.Attr[0].Val == "L0" || t.Attr[0].Val == "forfait" { // Text to extract
 							text := (string)(z.Text())
 							value := strings.TrimSpace(text)
 							if len(value) > 0 {
