@@ -103,6 +103,14 @@ func Display() error {
 								fmt.Printf("%d Attr::::::::::: %s :: %s\n", i, value, t.Attr)
 								content[i] = value
 							}
+						} else if t.Attr[0].Val == "mTitreSmall" {
+							text := (string)(z.Text())
+							value := strings.TrimSpace(text)
+							if len(value) > 0 {
+								i = i + 1
+								fmt.Printf("%d Attr::::::::::: %s :: %s\n", i, value, t.Attr)
+								content[i] = value
+							}
 						}
 					}
 				}
