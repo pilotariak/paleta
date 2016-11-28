@@ -24,6 +24,7 @@ import (
 	"github.com/Sirupsen/logrus"
 
 	"github.com/pilotariak/paleta/leagues"
+	_ "github.com/pilotariak/paleta/leagues/ctpb"
 	_ "github.com/pilotariak/paleta/leagues/lcapb"
 	"github.com/pilotariak/paleta/version"
 )

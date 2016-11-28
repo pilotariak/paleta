@@ -13,7 +13,7 @@ This tool is a simple CLI to display informations about Pelota competitions for 
 Supported leagues are :
 
 * [x] [Côte d'Argent](http://www.lcapb.net/)
-* [ ] [Pays Basque](http://www.comite-pelote-basque.eus/fr/)
+* [x] [Pays Basque](http://www.comite-pelote-basque.eus/fr/)
 * [ ] [Landes](http://www.llpb.fr/)
 * [ ] [Béarn](http://liguebearnpelote.fr/)
 * [ ] [Midi-Pyrénées](http://www.lmppb.fr/)
@@ -129,4 +129,3 @@ A [changelog](ChangeLog.md) is available
 Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 [badge-license]: https://img.shields.io/badge/license-Apache2-green.svg?style=flat
-
