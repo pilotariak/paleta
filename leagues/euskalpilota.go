@@ -26,7 +26,14 @@ import (
 	"strings"
 
 	"github.com/Sirupsen/logrus"
+	"github.com/fatih/color"
 	"github.com/olekukonko/tablewriter"
+)
+
+var (
+	greenOut  = color.New(color.FgGreen).SprintFunc()
+	yellowOut = color.New(color.FgYellow).SprintFunc()
+	redOut    = color.New(color.FgRed).SprintFunc()
 )
 
 func Fetch(uri string, disciplineID string, levelID string, data url.Values) ([]byte, error) {
@@ -102,7 +109,13 @@ func Display(uri string, disciplineID string, levelID string, date string) error
 							if len(value) > 0 {
 								i = i + 1
 								// fmt.Printf("%d Attr::::::::::: %s :: %s\n", i, value, t.Attr)
-								content[i] = value
+								if i == 0 {
+									content[i] = yellowOut(value)
+								} else if i == 3 {
+									content[i] = redOut(value)
+								} else {
+									content[i] = value
+								}
 							}
 						} else if t.Attr[0].Val == "mTitreSmall" {
 							text := (string)(z.Text())
@@ -110,7 +123,7 @@ func Display(uri string, disciplineID string, levelID string, date string) error
 							if len(value) > 0 {
 								i = i + 1
 								// fmt.Printf("%d Attr::::::::::: %s :: %s\n", i, value, t.Attr)
-								content[i] = value
+								content[i] = greenOut(value)
 							}
 						}
 					}
