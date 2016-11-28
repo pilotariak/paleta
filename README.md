@@ -19,7 +19,7 @@ Supported leagues are :
 * [ ] [Midi-Pyrénées](http://www.lmppb.fr/)
 * [x] [Ile de France](http://www.lidfpb.fr/)
 
-* [ ] [Fédération française](http://www.ffpb.net/)
+* [x] [Fédération française](http://www.ffpb.net/)
 
 
 ![Screenshot](paleta.png)
