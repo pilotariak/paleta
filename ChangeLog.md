@@ -1,8 +1,9 @@
 ChangeLog
 ==============
 
-# Version 0.2.0 (xx)
+# Version 0.2.0 (11/28/2016)
 
+- Add feature to display informations about a league
 - Add output colors in table
 - Add LBPB league
 - Add LIDFPB league
