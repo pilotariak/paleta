@@ -28,6 +28,8 @@ const (
 )
 
 var (
+	current = "20170501"
+
 	disciplines = map[string]string{
 		"1":   "Trinquet / Main Nue - Groupe A",
 		"2":   "Trinquet / P.G. Pleine Masculin",
@@ -93,5 +95,5 @@ func (l *ctpbLeague) Disciplines() map[string]string {
 
 func (l *ctpbLeague) Display(disciplineID string, levelID string) error {
 	logrus.Debugf("[ctpb] Search results for %s %s", disciplineID, levelID)
-	return leagues.Display(uri, disciplineID, levelID)
+	return leagues.Display(uri, disciplineID, levelID, current)
 }

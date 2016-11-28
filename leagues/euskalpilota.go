@@ -52,10 +52,10 @@ func Fetch(uri string, disciplineID string, levelID string, data url.Values) ([]
 	return body, nil
 }
 
-func Display(uri string, disciplineID string, levelID string) error {
+func Display(uri string, disciplineID string, levelID string, date string) error {
 	data := url.Values{}
 	data.Add("InSel", "")
-	data.Add("InCompet", "20170501")
+	data.Add("InCompet", date)
 	data.Add("InSpec", disciplineID)
 	data.Add("InVille", "0")
 	data.Add("InClub", "0")
