@@ -113,16 +113,17 @@ func Display() error {
 							}
 						}
 					}
-
-				} else if t.Data == "li" {
-					inner := z.Next()
-					if inner == html.TextToken {
-						text := (string)(z.Text())
-						value := strings.TrimSpace(text)
-						fmt.Printf("LI>>>>>> %s\n", value)
-						content[i] = fmt.Sprintf("%s %s", content[i], value)
-					}
 				}
+
+			} else if t.Data == "li" {
+				inner := z.Next()
+				if inner == html.TextToken {
+					text := (string)(z.Text())
+					value := strings.TrimSpace(text)
+					// fmt.Printf("LI>>>>>> %s\n", value)
+					content[i] = fmt.Sprintf("%s\n%s", content[i], value)
+				}
+
 			}
 		case html.TextToken: // text between start and end tag
 		case html.EndTagToken: // </tag>
