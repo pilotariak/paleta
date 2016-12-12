@@ -45,6 +45,23 @@ You can download the binaries :
         - lcapb
         - lidfpb
 
+* Display informations about a leage:
+
+        $ paleta -describe -league lcapb
+        +--------------+-----------------------------------------+
+        | Name         | LIGUE DE PELOTE BASQUE DE CÔTE D’ARGENT |
+        +--------------+-----------------------------------------+
+        | Address      | Maison Départementale des Sports        |
+        |              | 153, rue David Johnston                 |
+        |              | 33000 Bordeaux                          |
+        +--------------+-----------------------------------------+
+        | Website      | http://www.lcapb.net/                   |
+        +--------------+-----------------------------------------+
+        | Email        | contact@lcapb.net                       |
+        +--------------+-----------------------------------------+
+        | Phone number | 05 56 00 99 15                          |
+        +--------------+-----------------------------------------+
+
 * Show available levels for a league :
 
         $ ./paleta -league lcapb -levels
