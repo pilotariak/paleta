@@ -73,7 +73,7 @@ type lcapbLeague struct {
 
 func newLCAPBLeague() (leagues.League, error) {
 	return &lcapbLeague{
-		Name:        "LIGUE DE PELOTE BASQUE DE CÔTE D’ARGENT",
+		Name:        "Ligue de Pelote Basque de Côte d’Argent",
 		Website:     "http://www.lcapb.net/",
 		Address:     "Maison Départementale des Sports\n153, rue David Johnston\n33000 Bordeaux",
 		Email:       "contact@lcapb.net",
