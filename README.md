@@ -12,7 +12,7 @@ Supported leagues are :
 * [x] [Côte d'Argent](http://www.lcapb.net/)
 * [x] [Pays Basque](http://www.comite-pelote-basque.eus/fr/)
 * [ ] [Landes](http://www.llpb.fr/)
-* [ ] [Béarn](http://liguebearnpelote.fr/)
+* [x] [Béarn](http://liguebearnpelote.fr/)
 * [ ] [Midi-Pyrénées](http://www.lmppb.fr/)
 * [x] [Ile de France](http://www.lidfpb.fr/)
 
