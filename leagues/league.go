@@ -16,7 +16,10 @@ package leagues
 
 import (
 	"fmt"
+	"os"
 	"sort"
+
+	"github.com/olekukonko/tablewriter"
 )
 
 // type Discipline struct {
@@ -32,7 +35,10 @@ import (
 type League interface {
 
 	// Describe display informations
-	Describe()
+	//Describe()
+
+	// Details send informations about the league
+	Details() map[string]string
 
 	// Display will print results on stdout
 	Display(disciplineID string, levelID string) error
@@ -67,4 +73,14 @@ func ListLeagues() []string {
 	}
 	sort.Strings(leagues)
 	return leagues
+}
+
+func Describe(league League) {
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetRowLine(true)
+	table.SetAutoWrapText(false)
+	for k, v := range league.Details() {
+		table.Append([]string{k, v})
+	}
+	table.Render()
 }

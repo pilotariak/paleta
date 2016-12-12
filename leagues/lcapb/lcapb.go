@@ -16,10 +16,10 @@ package lcapb
 
 import (
 	// "fmt"
-	"os"
+	// "os"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/olekukonko/tablewriter"
+	// "github.com/olekukonko/tablewriter"
 
 	"github.com/pilotariak/paleta/leagues"
 )
@@ -82,16 +82,27 @@ func newLCAPBLeague() (leagues.League, error) {
 	}, nil
 }
 
-func (l *lcapbLeague) Describe() {
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetRowLine(true)
-	table.SetAutoWrapText(false)
-	table.Append([]string{"Name", l.Name})
-	table.Append([]string{"Address", l.Address})
-	table.Append([]string{"Website", l.Website})
-	table.Append([]string{"Email", l.Email})
-	table.Append([]string{"Phone number", l.PhoneNumber})
-	table.Render()
+// func (l *lcapbLeague) Describe() {
+// 	table := tablewriter.NewWriter(os.Stdout)
+// 	table.SetRowLine(true)
+// 	table.SetAutoWrapText(false)
+// 	table.Append([]string{"Name", l.Name})
+// 	table.Append([]string{"Address", l.Address})
+// 	table.Append([]string{"Website", l.Website})
+// 	table.Append([]string{"Email", l.Email})
+// 	table.Append([]string{"Phone number", l.PhoneNumber})
+// 	table.Render()
+// }
+
+func (l *lcapbLeague) Details() map[string]string {
+	return map[string]string{
+		"Name":        l.Name,
+		"Website":     l.Website,
+		"Address":     l.Address,
+		"Email":       l.Email,
+		"PhoneNumber": l.PhoneNumber,
+		"Fax":         l.PhoneNumber,
+	}
 }
 
 func (l *lcapbLeague) Levels() map[string]string {

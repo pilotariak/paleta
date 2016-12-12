@@ -16,10 +16,10 @@ package ctpb
 
 import (
 	// "fmt"
-	"os"
+	// "os"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/olekukonko/tablewriter"
+	// "github.com/olekukonko/tablewriter"
 
 	"github.com/pilotariak/paleta/leagues"
 )
@@ -58,13 +58,20 @@ func newLIDFPBLeague() (leagues.League, error) {
 	}, nil
 }
 
-func (l *lidfpbLeague) Describe() {
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetRowLine(true)
-	table.SetAutoWrapText(false)
-	table.Append([]string{"Name", l.Name})
-	table.Append([]string{"Website", l.Website})
-	table.Render()
+// func (l *lidfpbLeague) Describe() {
+// 	table := tablewriter.NewWriter(os.Stdout)
+// 	table.SetRowLine(true)
+// 	table.SetAutoWrapText(false)
+// 	table.Append([]string{"Name", l.Name})
+// 	table.Append([]string{"Website", l.Website})
+// 	table.Render()
+// }
+
+func (l *lidfpbLeague) Details() map[string]string {
+	return map[string]string{
+		"Name":    l.Name,
+		"Website": l.Website,
+	}
 }
 
 func (l *lidfpbLeague) Levels() map[string]string {

@@ -129,7 +129,7 @@ func main() {
 		os.Exit(0)
 	}
 	if describe {
-		league.Describe()
+		leagues.Describe(league)
 		os.Exit(0)
 	}
 
