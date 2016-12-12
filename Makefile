@@ -71,7 +71,6 @@ init: ## Install requirements
 	@go get -u github.com/Masterminds/rmvcsdir
 	@go get -u github.com/golang/lint/golint
 	@go get -u github.com/kisielk/errcheck
-	@go get -u golang.org/x/tools/cmd/oracle
 	@go get -u github.com/mitchellh/gox
 
 .PHONY: deps
