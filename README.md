@@ -3,11 +3,8 @@
 [![License Apache 2][badge-license]](LICENSE)
 [![GitHub version](https://badge.fury.io/gh/pilotariak%2Fpaleta.svg)](https://badge.fury.io/gh/pilotariak%2Fpaleta)
 
-Master :
-* [![Circle CI](https://circleci.com/gh/pilotariak/paleta/tree/master.svg?style=svg)](https://circleci.com/gh/pilotariak/paleta/tree/master)
-
-Develop :
-* [![Circle CI](https://circleci.com/gh/pilotariak/paleta/tree/develop.svg?style=svg)](https://circleci.com/gh/pilotariak/paleta/tree/develop)
+* Master : [![Circle CI](https://circleci.com/gh/pilotariak/paleta/tree/master.svg?style=svg)](https://circleci.com/gh/pilotariak/paleta/tree/master)
+* Develop : [![Circle CI](https://circleci.com/gh/pilotariak/paleta/tree/develop.svg?style=svg)](https://circleci.com/gh/pilotariak/paleta/tree/develop)
 
 This tool is a simple CLI to display informations about Pelota competitions for the terminal.
 Supported leagues are :
