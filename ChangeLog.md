@@ -1,6 +1,11 @@
 ChangeLog
 ==============
 
+# Version 0.3.0 (12/14/2016)
+
+- Refactoring CLI with subcommands
+- Setup continuous integration using CircleCI
+
 # Version 0.2.0 (11/28/2016)
 
 - Add feature to display informations about a league
