@@ -33,9 +33,32 @@ You can download the binaries :
 
 ## Usage
 
+* CLI help:
+
+        $ paleta help
+        NAME:
+        paleta - CLI for Pelota news
+
+        USAGE:
+            paleta [global options] command [command options] [arguments...]
+
+        VERSION:
+            0.2.0
+
+        COMMANDS:
+            version
+            leagues
+            league
+            help, h  Shows a list of commands or help for one command
+
+        GLOBAL OPTIONS:
+            --debug        Enable debug mode
+            --help, -h     show help
+            --version, -v  print the version
+
 * Show supported leagues :
 
-        $ ./paleta -leagues
+        $ paleta leagues list
         Leagues:
         - ctpb
         - lbpb
@@ -44,7 +67,7 @@ You can download the binaries :
 
 * Display informations about a leage:
 
-        $ paleta -describe -league lcapb
+        $ paleta league describe --league lcapb
         +--------------+-----------------------------------------+
         | Name         | LIGUE DE PELOTE BASQUE DE CÔTE D’ARGENT |
         +--------------+-----------------------------------------+
@@ -59,9 +82,18 @@ You can download the binaries :
         | Phone number | 05 56 00 99 15                          |
         +--------------+-----------------------------------------+
 
-* Show available levels for a league :
+* Show available challenge:
 
-        $ ./paleta -league lcapb -levels
+        $ paleta league challenges --league lcapb
+        Challenges:
+        - [20170501] Championnat 2016-2017 CCAPB
+        - [20160501] Championnat Hiver 2015-2016 LCAPB
+        - [20150501] Championnat Hiver 2014-2015 LCAPB
+        - [20130501] Championnat Hiver 2013-2014 LCAPB
+
+* Show available levels:
+
+        $ paleta league levels --league lcapb
         Levels:
         - [51] Senoir Individuel
         - [1] 1ère Série
@@ -73,9 +105,9 @@ You can download the binaries :
         - [7] Minimes
         - [8] Benjamins
 
-* Show available disciplines for a league:
+* Show available disciplines:
 
-        $ ./paleta -league lcapb -disciplines
+        $ paleta league disciplines --league lcapb
         Disciplines:
         - [2] Trinquet / P.G. Pleine Masculin
         - [4] Trinquet / P.G. Pleine Feminine
@@ -91,29 +123,24 @@ You can download the binaries :
 
 * Display result for a competiion:
 
-        $ ./paleta -league lcapb -level 1 -discipline 2
-        +---------------+------------------------------------+------------------------------------+-------+-------------+
-        |     DATE      |               CLUB 1               |               CLUB 2               | SCORE | COMMENTAIRE |
-        +---------------+------------------------------------+------------------------------------+-------+-------------+
-        | Poules 1      | Club 1                             | Club 2                             | Score | Commentaire |
-        +---------------+------------------------------------+------------------------------------+-------+-------------+
-        | 18/09/2016    | PILOTARI IRRATZABAL CLUB           | PILOTARI IRRATZABAL CLUB           | 39/40 |             |
-        |               | (040802 - 0120) DAINCIART Jon (E)  | (015900 - 0571) IRIART Laurent (E) |       |             |
-        |               | (039742) CAZAUBON Emerik           | (016667) BORDACHAR Serge           |       |             |
-        +---------------+------------------------------------+------------------------------------+-------+-------------+
-        | 18/09/2016    | C.A. BEGLAIS                       | A.P. AVIATION CIVILE & METEO. BX   | 40/31 |             |
-        |               | (073842) GARCIA Antoine (S)        | (053104) BEDECARRAX Patrice        |       |             |
-        |               | (073197) SENDER Timothe (S)        | (055181) DE Bouyn Godefroy         |       |             |
-        +---------------+------------------------------------+------------------------------------+-------+-------------+
+        $ paleta league results --league lcapb --level 2 --discipline 2 --challenge 20170501
+        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
+        |     DATE      |                CLUB 1                 |                CLUB 2                 | SCORE | COMMENTAIRE |
+        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
+        | Poules 1      | Club 1                                | Club 2                                | Score | Commentaire |
+        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
+        | 18/09/2016    | AMIS DE LA PEL.BASQUE-LE HAILLAN      | C.S. GAZELEC GIRONDIN                 | 14/40 |             |
+        |               | (072708) MARTI Paul                   | (085318) MAGNAND Fabien               |       |             |
+        |               | (052742) LABEAU Armand                | (091825) THOBERT Jerome               |       |             |
+        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
         ...
-        +---------------+------------------------------------+------------------------------------+-------+-------------+
-        | Finale        | Club 1                             | Club 2                             | Score | Commentaire |
-        +---------------+------------------------------------+------------------------------------+-------+-------------+
-        | 27/11/2016    | C.A. BEGLAIS                       | PILOTARI IRRATZABAL CLUB           | 40/36 |             |
-        |               | (073842) GARCIA Antoine (S)        | (015900 - 0571) IRIART Laurent (E) |       |             |
-        |               | (073197) SENDER Timothe (S)        | (016667) BORDACHAR Serge           |       |             |
-        +---------------+------------------------------------+------------------------------------+-------+-------------+
-
+        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
+        | Finale        | Club 1                                | Club 2                                | Score | Commentaire |
+        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
+        | 27/11/2016    | S.A. GAZINET CESTAS                   | AKITANIA                              | 28/40 |             |
+        |               | (056440) GOUDIN Nicolas               | (079261) THOLOT DECHENE Gilles        |       |             |
+        |               | (076665 - 0510) ROSSIT Bruno (E)      | (079188) OERLEMANS Richard            |       |             |
+        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
 
 
 ## Development

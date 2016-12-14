@@ -3,10 +3,10 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "jRtYpPa7CRuA+LP4ELF9c9CjJao=",
+			"checksumSHA1": "h5Q1o+kA7VMAR5QpBzVJZbBEgC0=",
 			"path": "github.com/Sirupsen/logrus",
-			"revision": "a437dfd2463eaedbec3dfe443e477d3b0a810b3f",
-			"revisionTime": "2016-11-18T19:45:39Z"
+			"revision": "881bee4e20a5d11a6a88a5667c6f292072ac1963",
+			"revisionTime": "2016-12-02T02:35:07Z"
 		},
 		{
 			"checksumSHA1": "x77xUarDfVxctJMAJPCQzlYk8JM=",
@@ -37,6 +37,12 @@
 			"path": "github.com/olekukonko/tablewriter",
 			"revision": "bdcc175572fd7abece6c831e643891b9331bc9e7",
 			"revisionTime": "2016-09-23T12:54:01Z"
+		},
+		{
+			"checksumSHA1": "LMu1NsthSqcXfKu0m6YGPAmwBcY=",
+			"path": "github.com/urfave/cli",
+			"revision": "0bdeddeeb0f650497d603c4ad7b20cfe685682f6",
+			"revisionTime": "2016-11-22T04:36:10Z"
 		},
 		{
 			"checksumSHA1": "vqc3a+oTUGX8PmD0TS+qQ7gmN8I=",

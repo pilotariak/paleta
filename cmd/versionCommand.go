@@ -12,7 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package version
+package cmd
 
-// Version represents the application version using SemVer
-const Version string = "0.3.0"
+import (
+	"fmt"
+
+	"github.com/urfave/cli"
+
+	"github.com/pilotariak/paleta/version"
+)
+
+// VersionCommand is the command which display Paleta version
+var VersionCommand = cli.Command{
+	Name: "version",
+	// Aliases: []string{"v"},
+	Action: func(context *cli.Context) error {
+		fmt.Printf("Paleta v%s\n", version.Version)
+		return nil
+	},
+}
