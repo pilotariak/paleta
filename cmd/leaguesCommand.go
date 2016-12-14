@@ -39,7 +39,7 @@ var leaguesListCommand = cli.Command{
 	Name:  "list",
 	Usage: "List all leagues",
 	Action: func(context *cli.Context) error {
-		setLogLevel(context)
+
 		fmt.Println("Leagues:")
 		for _, name := range leagues.ListLeagues() {
 			fmt.Printf("- %s\n", name)

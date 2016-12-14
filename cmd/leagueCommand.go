@@ -31,10 +31,33 @@ import (
 var LeagueCommand = cli.Command{
 	Name: "league",
 	Subcommands: []cli.Command{
+		leagueDescribeCommand,
 		leagueLevelsCommand,
 		leagueDisciplinesCommand,
 		leagueChallengesCommand,
 		leagueResultsCommand,
+	},
+}
+
+var leagueDescribeCommand = cli.Command{
+	Name:  "describe",
+	Usage: "Describe current league",
+	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:  "league",
+			Usage: "the id of the league",
+		},
+	},
+	Action: func(context *cli.Context) error {
+		if !context.IsSet("league") {
+			return fmt.Errorf("Please specify the id of the league to used via the --league option")
+		}
+		league, err := leagues.New(context.String("league"))
+		if err != nil {
+			return err
+		}
+		leagues.Describe(league)
+		return nil
 	},
 }
 
