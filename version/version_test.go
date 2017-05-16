@@ -1,4 +1,4 @@
-// Copyright (C) 2016 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+// Copyright (C) 2017 Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,5 +14,15 @@
 
 package version
 
-// Version represents the application version using SemVer
-const Version string = "0.4.0"
+import (
+	// "fmt"
+	"regexp"
+	"testing"
+)
+
+func Test_Version(t *testing.T) {
+	validVersion := regexp.MustCompile(`^[0-9]+\.[0-9]+\.[0-9]+$`)
+	if !validVersion.MatchString(Version) {
+		t.Fatal("Invalid version")
+	}
+}
