@@ -3,64 +3,38 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "h5Q1o+kA7VMAR5QpBzVJZbBEgC0=",
-			"path": "github.com/Sirupsen/logrus",
-			"revision": "881bee4e20a5d11a6a88a5667c6f292072ac1963",
-			"revisionTime": "2016-12-02T02:35:07Z"
-		},
-		{
-			"checksumSHA1": "x77xUarDfVxctJMAJPCQzlYk8JM=",
+			"checksumSHA1": "AANTVr9CVVyzsgviODY6Wi2thuM=",
 			"path": "github.com/fatih/color",
-			"revision": "bf82308e8c8546dc2b945157173eb8a959ae9505",
-			"revisionTime": "2016-10-25T12:05:01Z"
+			"revision": "570b54cabe6b8eb0bc2dfce68d964677d63b5260",
+			"revisionTime": "2017-05-23T13:53:55Z",
+			"version": "v1.5.0",
+			"versionExact": "v1.5.0"
 		},
 		{
-			"checksumSHA1": "I4njd26dG5hxFT2nawuByM4pxzY=",
+			"checksumSHA1": "uAVg4Tj5Fxi62z7/ScDEkHr6Ue8=",
 			"path": "github.com/mattn/go-colorable",
-			"revision": "d228849504861217f796da67fae4f6e347643f15",
-			"revisionTime": "2016-11-03T16:00:40Z"
+			"revision": "ded68f7a9561c023e790de24279db7ebf473ea80",
+			"revisionTime": "2017-03-27T08:33:44Z"
 		},
 		{
-			"checksumSHA1": "xZuhljnmBysJPta/lMyYmJdujCg=",
+			"checksumSHA1": "U6lX43KDDlNOn+Z0Yyww+ZzHfFo=",
 			"path": "github.com/mattn/go-isatty",
-			"revision": "30a891c33c7cde7b02a981314b4228ec99380cca",
-			"revisionTime": "2016-11-23T14:36:37Z"
-		},
-		{
-			"checksumSHA1": "yf185lmVPcvXjLZuPT1s4JzxI18=",
-			"path": "github.com/mattn/go-runewidth",
-			"revision": "737072b4e32b7a5018b4a7125da8d12de90e8045",
-			"revisionTime": "2016-10-12T01:35:12Z"
-		},
-		{
-			"checksumSHA1": "0KQQY1f4p/HmCQE7HjdgesEoe3Y=",
-			"path": "github.com/olekukonko/tablewriter",
-			"revision": "bdcc175572fd7abece6c831e643891b9331bc9e7",
-			"revisionTime": "2016-09-23T12:54:01Z"
+			"revision": "fc9e8d8ef48496124e79ae0df75490096eccf6fe",
+			"revisionTime": "2017-03-22T23:44:13Z"
 		},
 		{
 			"checksumSHA1": "LMu1NsthSqcXfKu0m6YGPAmwBcY=",
 			"path": "github.com/urfave/cli",
 			"revision": "0bdeddeeb0f650497d603c4ad7b20cfe685682f6",
-			"revisionTime": "2016-11-22T04:36:10Z"
+			"revisionTime": "2016-11-22T04:36:10Z",
+			"version": "v1.19.1",
+			"versionExact": "v1.19.1"
 		},
 		{
-			"checksumSHA1": "vqc3a+oTUGX8PmD0TS+qQ7gmN8I=",
-			"path": "golang.org/x/net/html",
-			"revision": "4971afdc2f162e82d185353533d3cf16188a9f4e",
-			"revisionTime": "2016-11-15T21:05:04Z"
-		},
-		{
-			"checksumSHA1": "00eQaGynDYrv3tL+C7l9xH0IDZg=",
-			"path": "golang.org/x/net/html/atom",
-			"revision": "4971afdc2f162e82d185353533d3cf16188a9f4e",
-			"revisionTime": "2016-11-15T21:05:04Z"
-		},
-		{
-			"checksumSHA1": "MlTI84eWAFvqeRgXxBtjRYHk1yQ=",
+			"checksumSHA1": "BFc5CztYyZWt5aJe3z15eJnEZYA=",
 			"path": "golang.org/x/sys/unix",
-			"revision": "30237cf4eefd639b184d1f2cb77a581ea0be8947",
-			"revisionTime": "2016-11-19T15:29:01Z"
+			"revision": "b9e8d468b01f806830d387bd9a1fe96dc68129d1",
+			"revisionTime": "2017-06-07T10:07:34Z"
 		}
 	],
 	"rootPath": "github.com/pilotariak/paleta"
