@@ -9,14 +9,19 @@ machine:
 
 dependencies:
   post:
-    - make init
+    - go version
 
 test:
   pre:
-    - go version
+    - echo `pwd`
+    - echo $GOPATH
+    - mkdir -p /home/ubuntu/.go_workspace/src/github.com/pilotariak/
+    - cd /home/ubuntu/.go_workspace/src/github.com/pilotariak/ && ln -s /home/ubuntu/paleta .
+    - cd /home/ubuntu/.go_workspace/src/github.com/pilotariak/paleta
   override:
+    - make tools
     - make build
-    - make test
+    # - make test
     - make lint
     - make vet
     - make coverage
