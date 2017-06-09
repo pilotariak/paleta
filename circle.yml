@@ -4,6 +4,7 @@ machine:
     - sudo rm -rf /usr/local/go
     - sudo tar -C /usr/local -xzf go.tar.gz
     - sudo chmod a+w /usr/local/go/src/
+    - sudo mkdir -p /usr/local/go_workspace
   services:
     - docker
 
