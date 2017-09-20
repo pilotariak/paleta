@@ -1,6 +1,11 @@
 ChangeLog
 ==============
 
+# Version 0.4.0 (09/20/2017)
+
+- Add challenge 2017-2018
+- Replace *govendor* by *dep*
+
 # Version 0.3.0 (12/14/2016)
 
 - Refactoring CLI with subcommands
