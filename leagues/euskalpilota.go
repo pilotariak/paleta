@@ -1,4 +1,4 @@
-// Copyright (C) 2016 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+// Copyright (C) 2016, 2017 Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -47,10 +47,10 @@ func fetch(uri string, data url.Values) ([]byte, error) {
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	r.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
 	resp, err := client.Do(r)
-	defer resp.Body.Close()
 	if err != nil {
 		return nil, fmt.Errorf("Http request to %s failed: %s", r.URL, err.Error())
 	}
+	defer resp.Body.Close()
 	logrus.Debugf("[leagues] HTTP Status: %s", resp.Status)
 	body, err := ioutil.ReadAll(resp.Body)
 	if nil != err {

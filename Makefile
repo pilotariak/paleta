@@ -1,4 +1,4 @@
-# Copyright (C) 2016 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+# Copyright (C) 2016, 2017 Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ DIR = $(shell pwd)
 DOCKER = docker
 
 GO = go
-GLIDE = glide
 
 GOX = gox -os="linux darwin windows freebsd openbsd netbsd"
 GOX_ARGS = "-output={{.Dir}}-$(VERSION)_{{.OS}}_{{.Arch}}"
@@ -63,20 +62,22 @@ clean: ## Cleanup
 	@echo -e "$(OK_COLOR)[$(APP)] Cleanup$(NO_COLOR)"
 	@rm -fr $(APP) $(EXE) $(APP)-*.tar.gz
 
-.PHONY: init
-init: ## Install requirements
+.PHONY: tools
+tools:
 	@echo -e "$(OK_COLOR)[$(APP)] Install requirements$(NO_COLOR)"
 	@go get -u github.com/golang/glog
-	@go get -u github.com/kardianos/govendor
+	@go get -u github.com/golang/dep/cmd/dep
 	@go get -u github.com/Masterminds/rmvcsdir
 	@go get -u github.com/golang/lint/golint
 	@go get -u github.com/kisielk/errcheck
 	@go get -u github.com/mitchellh/gox
 
+init: tools ## Install requirements
+
 .PHONY: deps
 deps: ## Install dependencies
 	@echo -e "$(OK_COLOR)[$(APP)] Update dependencies$(NO_COLOR)"
-	@govendor update
+	@dep ensure -update
 
 .PHONY: build
 build: ## Make binary
@@ -86,7 +87,7 @@ build: ## Make binary
 .PHONY: test
 test: ## Launch unit tests
 	@echo -e "$(OK_COLOR)[$(APP)] Launch unit tests $(NO_COLOR)"
-	@govendor test +local
+	@go test
 
 .PHONY: lint
 lint: ## Launch golint

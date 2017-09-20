@@ -1,4 +1,4 @@
-// Copyright (C) 2016 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+// Copyright (C) 2016, 2017 Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
+// League define a pelote league
 type League interface {
 
 	// Details send informations about the league
@@ -40,14 +41,17 @@ type League interface {
 	Disciplines() map[string]string
 }
 
+// LeagueFunc is a constructor for League
 type LeagueFunc func() (League, error)
 
 var registeredLeagues = map[string](LeagueFunc){}
 
+// RegisterLeague set a new League constructor
 func RegisterLeague(name string, f LeagueFunc) {
 	registeredLeagues[name] = f
 }
 
+// New find for a League with a name
 func New(name string) (League, error) {
 	f, ok := registeredLeagues[name]
 	if !ok {
@@ -56,6 +60,7 @@ func New(name string) (League, error) {
 	return f()
 }
 
+// ListLeagues return an array of available Leagues names
 func ListLeagues() []string {
 	leagues := make([]string, 0, len(registeredLeagues))
 	for name := range registeredLeagues {
@@ -65,6 +70,7 @@ func ListLeagues() []string {
 	return leagues
 }
 
+// Describe display information about a League
 func Describe(league League) {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetRowLine(true)
