@@ -1,4 +1,4 @@
-// Copyright (C) 2016 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+// Copyright (C) 2016, 2017 Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ const (
 
 var (
 	challenges = map[string]string{
+		"20180301": "CHAMPIONNAT HIVER 2017 - 2018",
 		"20170301": "CHAMPIONNAT HIVER 2016 - 2017",
 		"20160301": "Championnat HIVER 2015 - 2016",
 		"20140302": "Championnat HIVER 2014 - 2015",
