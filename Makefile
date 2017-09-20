@@ -66,7 +66,7 @@ clean: ## Cleanup
 tools:
 	@echo -e "$(OK_COLOR)[$(APP)] Install requirements$(NO_COLOR)"
 	@go get -u github.com/golang/glog
-	@go get -u github.com/kardianos/govendor
+	@go get -u github.com/golang/dep/cmd/dep
 	@go get -u github.com/Masterminds/rmvcsdir
 	@go get -u github.com/golang/lint/golint
 	@go get -u github.com/kisielk/errcheck
@@ -77,7 +77,7 @@ init: tools ## Install requirements
 .PHONY: deps
 deps: ## Install dependencies
 	@echo -e "$(OK_COLOR)[$(APP)] Update dependencies$(NO_COLOR)"
-	@govendor update
+	@dep ensure -update
 
 .PHONY: build
 build: ## Make binary
@@ -87,7 +87,7 @@ build: ## Make binary
 .PHONY: test
 test: ## Launch unit tests
 	@echo -e "$(OK_COLOR)[$(APP)] Launch unit tests $(NO_COLOR)"
-	@govendor test +local
+	@go test
 
 .PHONY: lint
 lint: ## Launch golint
