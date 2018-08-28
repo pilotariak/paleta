@@ -28,6 +28,7 @@ const (
 
 var (
 	challenges = map[string]string{
+		"20190301": "Championnat HIVER 2018 - 2019",
 		"20180301": "CHAMPIONNAT HIVER 2017 - 2018",
 		"20170301": "CHAMPIONNAT HIVER 2016 - 2017",
 		"20160301": "Championnat HIVER 2015 - 2016",
