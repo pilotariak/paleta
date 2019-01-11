@@ -1,6 +1,12 @@
 ChangeLog
 ==============
 
+# Version 0.5.0 (01/11/2019)
+
+- Challenges: update to 2018/2019
+- Logging: replace logging library
+- Golang: refactoring using Golang modules
+
 # Version 0.4.0 (09/20/2017)
 
 - Add challenge 2017-2018
