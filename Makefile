@@ -34,6 +34,8 @@ BINTRAY_USERNAME = nlamirault
 BINTRAY_ORG = pilotariak
 BINTRAY_REPOSITORY= oss
 
+EXE = $(shell ls paleta-*_*)
+
 DOCKER = docker
 NAMESPACE = nimbus
 
