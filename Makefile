@@ -26,6 +26,14 @@ DIR = $(shell pwd)
 
 GO = go
 
+GOX = gox -os="linux darwin windows freebsd openbsd netbsd"
+GOX_ARGS = "-output={{.Dir}}-$(VERSION)_{{.OS}}_{{.Arch}}"
+
+BINTRAY_URI = https://api.bintray.com
+BINTRAY_USERNAME = nlamirault
+BINTRAY_ORG = pilotariak
+BINTRAY_REPOSITORY= oss
+
 DOCKER = docker
 NAMESPACE = nimbus
 
@@ -110,9 +118,18 @@ errcheck: ## Launch go errcheck
 	@echo -e "$(OK_COLOR)[$(APP)] Go Errcheck $(NO_COLOR)"
 	@$(foreach pkg,$(PKGS),errcheck $(pkg) $(glide novendor) || exit;)
 
-binaries: changelog ## Make all binaries for a new release
+gox: ## Make all binaries
 	@echo -e "$(OK_COLOR)[$(APP)] Create binaries $(NO_COLOR)"
-	$(GOX) -output=paleta-$(VERSION)_{{.OS}}_{{.Arch}} -osarch="linux/amd64 darwin/amd64 windows/amd64" github.com/pilotariak/paleta
+	$(GOX) $(GOX_ARGS) github.com/pilotariak/paleta
+
+.PHONY: binaries
+binaries: ## Upload all binaries
+	@echo -e "$(OK_COLOR)[$(APP)] Upload binaries to Bintray $(NO_COLOR)"
+	for i in $(EXE); do \
+		curl -T $$i \
+			-u$(BINTRAY_USERNAME):$(BINTRAY_APIKEY) \
+			"$(BINTRAY_URI)/content/$(BINTRAY_ORG)/$(BINTRAY_REPOSITORY)/$(APP)/${VERSION}/$$i;publish=1"; \
+        done
 
 docker-build: ## Build Docker image
 	@echo "$()Docker build $(NAMESPACE)/$(APP):$(VERSION)$(NO_COLOR)"
