@@ -1,4 +1,4 @@
-# Copyright (C) 2016, 2017 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+# Copyright (C) 2016-2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,26 +15,21 @@
 APP = paleta
 
 VERSION=$(shell \
-        grep "const Version" version/version.go \
+        grep "const Version" pkg/version/version.go \
         |awk -F'=' '{print $$2}' \
-        |sed -e "s/[^0-9.]//g" \
+        |sed -e "s/[^0-9.rc]//g" \
 	|sed -e "s/ //g")
 
 SHELL = /bin/bash
 
 DIR = $(shell pwd)
 
-DOCKER = docker
-
 GO = go
 
-GOX = gox -os="linux darwin windows freebsd openbsd netbsd"
-GOX_ARGS = "-output={{.Dir}}-$(VERSION)_{{.OS}}_{{.Arch}}"
+DOCKER = docker
+NAMESPACE = nimbus
 
-BINTRAY_URI = https://api.bintray.com
-BINTRAY_USERNAME = nlamirault
-BINTRAY_ORG = pilotariak
-BINTRAY_REPOSITORY= oss
+GOX = gox
 
 NO_COLOR=\033[0m
 OK_COLOR=\033[32;01m
@@ -42,14 +37,6 @@ ERROR_COLOR=\033[31;01m
 WARN_COLOR=\033[33;01m
 
 MAKE_COLOR=\033[33;01m%-20s\033[0m
-
-MAIN = github.com/pilotariak/paleta
-SRCS = $(shell git ls-files '*.go' | grep -v '^vendor/')
-PKGS = $(shell glide novendor)
-EXE = $(shell ls paleta-*_*)
-
-PACKAGE=$(APP)-$(VERSION)
-ARCHIVE=$(PACKAGE).tar
 
 .DEFAULT_GOAL := help
 
@@ -60,34 +47,55 @@ help:
 
 clean: ## Cleanup
 	@echo -e "$(OK_COLOR)[$(APP)] Cleanup$(NO_COLOR)"
-	@rm -fr $(APP) $(EXE) $(APP)-*.tar.gz
+	@rm -fr diablod diabloctl diabloadm
 
 .PHONY: tools
 tools:
 	@echo -e "$(OK_COLOR)[$(APP)] Install requirements$(NO_COLOR)"
-	@go get -u github.com/golang/glog
-	@go get -u github.com/golang/dep/cmd/dep
-	@go get -u github.com/Masterminds/rmvcsdir
 	@go get -u github.com/golang/lint/golint
 	@go get -u github.com/kisielk/errcheck
 	@go get -u github.com/mitchellh/gox
 
 init: tools ## Install requirements
 
-.PHONY: deps
-deps: ## Install dependencies
-	@echo -e "$(OK_COLOR)[$(APP)] Update dependencies$(NO_COLOR)"
-	@dep ensure -update
-
 .PHONY: build
 build: ## Make binary
 	@echo -e "$(OK_COLOR)[$(APP)] Build $(NO_COLOR)"
-	@$(GO) build .
+	@$(GO) build -o paleta github.com/pilotariak/paleta
 
 .PHONY: test
 test: ## Launch unit tests
 	@echo -e "$(OK_COLOR)[$(APP)] Launch unit tests $(NO_COLOR)"
-	@go test
+	@go test -tags '$(BUILD_TAGS)' -ldflags '$(GO_LDFLAGS)' -gcflags '$(GO_GCFLAGS)' \
+		-v $$(go list ./... | grep -v /vendor/)
+
+.PHONY: test-verbose
+test-verbose: ## Launch unit tests with logs
+	@echo -e "$(OK_COLOR)[$(APP)] Launch unit tests with verbosity$(NO_COLOR)"
+	@go test -tags '$(BUILD_TAGS)' -ldflags '$(GO_LDFLAGS)' -gcflags '$(GO_GCFLAGS)' \
+		-v $$(go list ./... | grep -v /vendor/) -args --alsologtostderr -v 9
+
+.PHONY: test
+test-pkg: ## Launch unit tests
+	@echo -e "$(OK_COLOR)[$(APP)] Launch unit tests for $(pkg) $(NO_COLOR)"
+	@go test -tags '$(BUILD_TAGS)' -ldflags '$(GO_LDFLAGS)' -gcflags '$(GO_GCFLAGS)' $(pkg)
+
+.PHONY: test-verbose
+test-pkg-verbose: ## Launch unit tests with logs
+	@echo -e "$(OK_COLOR)[$(APP)] Launch unit tests for $(pkg) with verbosity$(NO_COLOR)"
+	@go test -tags '$(BUILD_TAGS)' -ldflags '$(GO_LDFLAGS)' -gcflags '$(GO_GCFLAGS)' \
+		-v $(pkg) -args --alsologtostderr -v 9
+
+.PHONY: coverage
+coverage: ## Launch code coverage
+	@echo -e "$(OK_COLOR)[$(APP)] Code coverage $(NO_COLOR)"
+	@go test -cover -tags '$(BUILD_TAGS)' -ldflags '$(GO_LDFLAGS)' -gcflags '$(GO_GCFLAGS)' \
+		-v $$(go list ./... | grep -v /vendor/)
+
+.PHONY: integration
+integration: ## Launch integration tests
+	@echo -e "$(OK_COLOR)[$(APP)] Launch integration tests $(NO_COLOR)"
+	@govendor test +local -tags=integration
 
 .PHONY: lint
 lint: ## Launch golint
@@ -102,22 +110,19 @@ errcheck: ## Launch go errcheck
 	@echo -e "$(OK_COLOR)[$(APP)] Go Errcheck $(NO_COLOR)"
 	@$(foreach pkg,$(PKGS),errcheck $(pkg) $(glide novendor) || exit;)
 
-.PHONY: coverage
-coverage: ## Launch code coverage
-	@$(foreach pkg,$(PKGS),$(GO) test -cover $(pkg) $(glide novendor) || exit;)
-
-gox: ## Make all binaries
+binaries: changelog ## Make all binaries for a new release
 	@echo -e "$(OK_COLOR)[$(APP)] Create binaries $(NO_COLOR)"
-	$(GOX) $(GOX_ARGS) github.com/pilotariak/paleta
+	$(GOX) -output=paleta-$(VERSION)_{{.OS}}_{{.Arch}} -osarch="linux/amd64 darwin/amd64 windows/amd64" github.com/pilotariak/paleta
 
-.PHONY: binaries
-binaries: ## Upload all binaries
-	@echo -e "$(OK_COLOR)[$(APP)] Upload binaries to Bintray $(NO_COLOR)"
-	for i in $(EXE); do \
-		curl -T $$i \
-			-u$(BINTRAY_USERNAME):$(BINTRAY_APIKEY) \
-			"$(BINTRAY_URI)/content/$(BINTRAY_ORG)/$(BINTRAY_REPOSITORY)/$(APP)/${VERSION}/$$i;publish=1"; \
-        done
+docker-build: ## Build Docker image
+	@echo "$()Docker build $(NAMESPACE)/$(APP):$(VERSION)$(NO_COLOR)"
+	@docker build -t $(NAMESPACE)/$(APP):$(VERSION) .
+
+docker-run: ## Run the Docker image
+	@echo "$(OK_COLOR)Docker run $(NAMESPACE)/$(APP):$(VERSION)$(NO_COLOR)"
+	docker run --rm=true \
+		-v `pwd`:/etc/trinquet \
+		$(NAMESPACE)/$(APP):$(VERSION)
 
 # for goprojectile
 .PHONY: gopath

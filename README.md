@@ -43,7 +43,7 @@ You can download the binaries :
             paleta [global options] command [command options] [arguments...]
 
         VERSION:
-            0.2.0
+            0.5.0
 
         COMMANDS:
             version
@@ -86,10 +86,12 @@ You can download the binaries :
 
         $ paleta league challenges --league lcapb
         Challenges:
+        - [20180501] Championnat 2017-2018 CCAPB
         - [20170501] Championnat 2016-2017 CCAPB
         - [20160501] Championnat Hiver 2015-2016 LCAPB
         - [20150501] Championnat Hiver 2014-2015 LCAPB
         - [20130501] Championnat Hiver 2013-2014 LCAPB
+        - [20190501] Championnat 2018-2019 CCAPB
 
 * Show available levels:
 
@@ -123,24 +125,39 @@ You can download the binaries :
 
 * Display result for a competiion:
 
-        $ paleta league results --league lcapb --level 2 --discipline 2 --challenge 20170501
-        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
-        |     DATE      |                CLUB 1                 |                CLUB 2                 | SCORE | COMMENTAIRE |
-        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
-        | Poules 1      | Club 1                                | Club 2                                | Score | Commentaire |
-        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
-        | 18/09/2016    | AMIS DE LA PEL.BASQUE-LE HAILLAN      | C.S. GAZELEC GIRONDIN                 | 14/40 |             |
-        |               | (072708) MARTI Paul                   | (085318) MAGNAND Fabien               |       |             |
-        |               | (052742) LABEAU Armand                | (091825) THOBERT Jerome               |       |             |
-        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
+        $ paleta league results --league lcapb --level 2 --discipline 2 --challenge 20190501
+        +---------------+--------------------------------------+--------------------------------------+-------+-------------+
+        |     DATE      |                CLUB 1                |                CLUB 2                | SCORE | COMMENTAIRE |
+        +---------------+--------------------------------------+--------------------------------------+-------+-------------+
+        | Poules 1      | Club 1                               | Club 2                               | Score | Commentaire |
+        +---------------+--------------------------------------+--------------------------------------+-------+-------------+
+        | 02/09/2018    | C.A. BEGLAIS                         | S.A. GAZINET CESTAS                  | 40/24 |             |
+        |               | (073842) GARCIA Antoine (S)          | (080163) LESTE Maxime                |       |             |
+        |               | (064403) CHARPENTIER Mathieu         | (030552) MICHALUC Christophe         |       |             |
+        +---------------+--------------------------------------+--------------------------------------+-------+-------------+
+        | 09/09/2018    | S.A. GAZINET CESTAS                  | PILOTARI IRRATZABAL CLUB             | 40/15 |             |
+        |               | (080163) LESTE Maxime                | (093680) MENVIELLE Bertrand          |       |             |
+        |               | (030552) MICHALUC Christophe         | (093679) ROBIN-BROSSE David          |       |             |
+        +---------------+--------------------------------------+--------------------------------------+-------+-------------+
         ...
-        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
-        | Finale        | Club 1                                | Club 2                                | Score | Commentaire |
-        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
-        | 27/11/2016    | S.A. GAZINET CESTAS                   | AKITANIA                              | 28/40 |             |
-        |               | (056440) GOUDIN Nicolas               | (079261) THOLOT DECHENE Gilles        |       |             |
-        |               | (076665 - 0510) ROSSIT Bruno (E)      | (079188) OERLEMANS Richard            |       |             |
-        +---------------+---------------------------------------+---------------------------------------+-------+-------------+
+        +---------------+--------------------------------------+--------------------------------------+-------+-------------+
+        | 1/2 finale    | Club 1                               | Club 2                               | Score | Commentaire |
+        +---------------+--------------------------------------+--------------------------------------+-------+-------------+
+        | 28/10/2018    | BORDEAUX ETUDIANTS CLUB              | PILOTARI CLUB VILLENAVAIS            | 40/39 |             |
+        |               | (059429) GILLERON Pascal             | (064884) NICOL Thomas                |       |             |
+        |               | (039813) LAPEYRE Clément             | (091825) THOBERT Jerome              |       |             |
+        +---------------+--------------------------------------+--------------------------------------+-------+-------------+
+        | 28/10/2018    | C.A. BEGLAIS                         | BORDEAUX ETUDIANTS CLUB              | 27/40 |             |
+        |               | (073842) GARCIA Antoine (S)          | (088281) BOISSIERE Guillaume         |       |             |
+        |               | (064403) CHARPENTIER Mathieu         | (097865) OYHENART David              |       |             |
+        +---------------+--------------------------------------+--------------------------------------+-------+-------------+
+        | Finale        | Club 1                               | Club 2                               | Score | Commentaire |
+        +---------------+--------------------------------------+--------------------------------------+-------+-------------+
+        | 04/11/2018    | BORDEAUX ETUDIANTS CLUB              | BORDEAUX ETUDIANTS CLUB              | 37/40 |             |
+        |               | (059429) GILLERON Pascal             | (088281) BOISSIERE Guillaume         |       |             |
+        |               | (039813) LAPEYRE Clément             | (097865) OYHENART David              |       |             |
+        +---------------+--------------------------------------+--------------------------------------+-------+-------------+
+
 
 
 ## Development

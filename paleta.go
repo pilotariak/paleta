@@ -1,4 +1,4 @@
-// Copyright (C) 2016, 2017 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+// Copyright (C) 2016-2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,20 +15,20 @@
 package main
 
 import (
-	// "fmt"
 	"os"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"github.com/urfave/cli"
 
-	_ "github.com/pilotariak/paleta/leagues/ctpb"
-	_ "github.com/pilotariak/paleta/leagues/ffpb"
-	_ "github.com/pilotariak/paleta/leagues/lbpb"
-	_ "github.com/pilotariak/paleta/leagues/lcapb"
-	_ "github.com/pilotariak/paleta/leagues/lidfpb"
-
-	"github.com/pilotariak/paleta/cmd"
-	"github.com/pilotariak/paleta/version"
+	"github.com/pilotariak/paleta/pkg/cmd"
+	_ "github.com/pilotariak/paleta/pkg/leagues/ctpb"
+	_ "github.com/pilotariak/paleta/pkg/leagues/ffpb"
+	_ "github.com/pilotariak/paleta/pkg/leagues/lbpb"
+	_ "github.com/pilotariak/paleta/pkg/leagues/lcapb"
+	_ "github.com/pilotariak/paleta/pkg/leagues/lidfpb"
+	_ "github.com/pilotariak/paleta/pkg/logging"
+	"github.com/pilotariak/paleta/pkg/version"
 )
 
 func main() {
@@ -52,13 +52,13 @@ func main() {
 	}
 	app.Action = func(context *cli.Context) error {
 		if context.Bool("debug") {
-			logrus.SetLevel(logrus.DebugLevel)
+			zerolog.SetGlobalLevel(zerolog.DebugLevel)
 		} else {
-			logrus.SetLevel(logrus.WarnLevel)
+			zerolog.SetGlobalLevel(zerolog.InfoLevel)
 		}
 		return nil
 	}
 	if err := app.Run(os.Args); err != nil {
-		logrus.Fatal(err)
+		log.Fatal().Err(err)
 	}
 }
